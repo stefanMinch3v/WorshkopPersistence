@@ -9,6 +9,7 @@ import java.sql.*;
  * Created by Admin on 3/29/2017.
  */
 public class SupplierDB implements SupplierDBIF {
+
     @Override
     public Supplier create(String name, String address, String country, String phone, String email) throws SQLException {
         Supplier s = new Supplier(name, address, country, phone, email);
@@ -161,4 +162,24 @@ public class SupplierDB implements SupplierDBIF {
 
         return cs;
     }
+    //Validate data
+    /*private ArrayList<String> validate(String name, String address, int zip, boolean isCompany, String phoneNumber){
+        ArrayList<String> errorsBag = new ArrayList<>();
+        if (name.length()>50 || name.length()<1){
+            errorsBag.add("Name must be between 2 and 49 characters");
+        }
+        if (zip>=10000 && zip<1000){
+            errorsBag.add("Zip code must have 4 digit number");
+        }
+        if (phoneNumber.length()!=8){
+            errorsBag.add("Phone number must contain 8 digits");
+        }else{
+            try{
+                Integer.parseInt(phoneNumber);
+            }catch (Exception e){
+                errorsBag.add("Phone number must contain only numbers");
+            }
+        }
+        return (errorsBag.size()==0)?null:errorsBag;
+    }*/
 }
