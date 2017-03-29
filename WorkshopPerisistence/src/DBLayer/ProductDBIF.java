@@ -11,9 +11,9 @@ import java.util.List;
  * Created by USER on 29.3.2017 г..
  */
 public interface ProductDBIF {
-    Gun createGun (int barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId, String size, String color) throws SQLException;
-    Clothing createClothing(int barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId,String size, String color);
-    Equipment createEquipment(int barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId,String size, String color);
+    Gun createGun (int barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId, String material, String caliber) throws SQLException;
+    Clothing createClothing(int barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId,String size, String color) throws SQLException;
+    Equipment createEquipment(int barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId,String type, String description) throws SQLException;
     Product update (Product product) throws SQLException;
     boolean delete (int id) throws SQLException;
     Product readById (int id) throws  SQLException;
