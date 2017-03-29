@@ -4,7 +4,7 @@ package ModelLayer;
  * Created by Admin on 3/29/2017.
  */
 public class Supplier {
-    private int id;
+    private int id = 0;
     private String name;
     private String address;
     private String country;
@@ -14,14 +14,23 @@ public class Supplier {
     public Supplier(){
 
     }
-    public Supplier(int id, String name, String address, String country, String phone, String email) {
-        this.id = id;
+    public Supplier(String name, String address, String country, String phone, String email) {
+        id++;
         this.name = name;
         this.address = address;
         this.country = country;
         this.phone = phone;
         this.email = email;
     }
+
+    /*
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }*/
 
     public String getName() {
         return name;
