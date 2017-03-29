@@ -9,7 +9,7 @@ public class DBConnection {
         DBConnection.getInstance();
     }
     private static final String  driver = "jdbc:sqlserver://kraka.ucn.dk";
-    private static final String  databaseName = ";databaseName=dmaj0916_196343";
+    private static final String  databaseName = ";databaseName=dmaj0916_197360";
 
     private static String  userName = "; user=dmaj0916_197360";
     private static String password = ";password=Password1!";
