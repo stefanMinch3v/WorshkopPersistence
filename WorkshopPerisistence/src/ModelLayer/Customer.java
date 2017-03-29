@@ -10,6 +10,7 @@ public class Customer {
     private int zip;
     private boolean isCompany;
     private String phoneNumber;
+    private String deleteMe;
 
     public Customer(String name, String address, int zip, boolean isCompany, String phoneNumber) {
         this.name = name;
