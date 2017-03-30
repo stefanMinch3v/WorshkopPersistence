@@ -9,12 +9,10 @@ public class Invoice {
     private int Id;
     private Date paymentDate;
     private double actualAmount;
-    private int orderId;
 
-    public Invoice(Date paymentDate, double actualAmount, int orderId) {
+    public Invoice(Date paymentDate, double actualAmount) {
         this.paymentDate = paymentDate;
         this.actualAmount = actualAmount;
-        this.orderId = orderId;
     }
 
     public int getId() {
@@ -29,16 +27,12 @@ public class Invoice {
         return actualAmount;
     }
 
-    public int getOrderId() {
-        return orderId;
-    }
-
     @Override
     public String toString() {
         return "Invoice{" +
-                "paymentDate=" + getPaymentDate() +
-                ", actualAmount=" + getActualAmount() +
-                ", orderId=" + getOrderId() +
+                "Id=" + Id +
+                ", paymentDate=" + paymentDate +
+                ", actualAmount=" + actualAmount +
                 '}';
     }
 }

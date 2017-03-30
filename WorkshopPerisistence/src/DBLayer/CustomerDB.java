@@ -1,6 +1,7 @@
 package DBLayer;
 
 import ModelLayer.Customer;
+import Validator.Validator;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -25,10 +26,10 @@ public class CustomerDB implements CustomerDBIF{
 
     @Override
     public Customer create(String name, String address, int zip, boolean isCompany, String phoneNumber) throws SQLException {
-        ArrayList<String> errorsBag = validate(name, zip, phoneNumber);
-        if (errorsBag!=null){
-            return null;
-        }else {
+        ArrayList<String> errorsBag = new ArrayList<>();
+        if(Validator.checkName(name)!=null)errorsBag.add(Validator.checkName(name));
+        if(Validator.checkZip(zip)!=null)errorsBag.add(Validator.checkZip(zip));
+        if(Validator.checkPhone(phoneNumber)!=null)errorsBag.add(Validator.checkPhone(phoneNumber));
             Customer customer = new Customer(name, address, zip, isCompany, phoneNumber);
             int isCompany2 = (isCompany) ? 1 : 0;
             String sql = String.format("INSERT INTO customer (name, address, zip, is_company, phone_number) VALUES ('%s', '%s', '%d', '%d', '%s')", name, address, zip, isCompany2, phoneNumber);
@@ -42,7 +43,6 @@ public class CustomerDB implements CustomerDBIF{
             }
 
             return customer;
-        }
     }
 
     @Override
@@ -158,24 +158,5 @@ public class CustomerDB implements CustomerDBIF{
             return null;
         }
         return customers;
-    }
-    private ArrayList<String> validate(String name, int zip, String phoneNumber){
-        ArrayList<String> errorsBag = new ArrayList<>();
-        if (name.length()>50 || name.length()<1){
-            errorsBag.add("Name must be between 2 and 49 characters");
-        }
-        if (zip>=10000 && zip<1000){
-            errorsBag.add("Zip code must have 4 digit number");
-        }
-        if (phoneNumber.length()!=8){
-            errorsBag.add("Phone number must contain 8 digits");
-        }else{
-            try{
-               Integer.parseInt(phoneNumber);
-            }catch (Exception e){
-                errorsBag.add("Phone number must contain only numbers");
-            }
-        }
-        return (errorsBag.size()==0)?null:errorsBag;
     }
 }

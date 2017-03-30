@@ -1,6 +1,7 @@
 package ControlLayer;
 import DBLayer.*;
 import ModelLayer.Customer;
+import Validator.Validator;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,12 +11,19 @@ import java.util.ArrayList;
  */
 public class CustomerController {
     public boolean create(String name, String address, int zip, boolean isCompany, String phoneNumber){
-        try {
-            return ((CustomerDB.getInstance().create(name, address, zip, isCompany, phoneNumber)) != null);
-        }catch (SQLException e){
-            e.printStackTrace();
-            return false;
+        ArrayList<String> errorsBag = new ArrayList<>();
+        if(Validator.checkName(name)!=null)errorsBag.add(Validator.checkName(name));
+        if(Validator.checkZip(zip)!=null)errorsBag.add(Validator.checkZip(zip));
+        if(Validator.checkPhone(phoneNumber)!=null)errorsBag.add(Validator.checkPhone(phoneNumber));
+        if (errorsBag.size()==0) {
+            try {
+                return ((CustomerDB.getInstance().create(name, address, zip, isCompany, phoneNumber)) != null);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
+        return false;
     }
     public boolean update(int id, Object object, int index){
         try {

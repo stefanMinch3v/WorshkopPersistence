@@ -11,11 +11,6 @@ import java.util.Date;
 
 
 public class OrderDB implements OrderDBIF {
-    private Order order;
-    private Date createdate = order.getDate();
-    private Date deliveryDat = order.getDeliveryDate();
-
-
     private static OrderDB instance =null;
     public static OrderDB getInstance(){
         if (instance==null){
@@ -26,7 +21,7 @@ public class OrderDB implements OrderDBIF {
 
     public static void main(String[] args) {
         try{
-            new OrderDB().create(new Date(), 10, true,new Date(), 1564465, 655465);
+            new OrderDB().create(new java.sql.Date(new Date().getTime()), 10, true,new java.sql.Date(new Date().getTime()), 3, 3);
             System.out.println("kokot");
         }
         catch (Exception ex)
@@ -34,10 +29,9 @@ public class OrderDB implements OrderDBIF {
         }
     }
     @Override
-    public Order create(Date date, int totalAmount, boolean deliveryStatus, Date deliveryDate, int invoiceId, int customerId) throws SQLException {
+    public Order create(java.sql.Date date, int totalAmount, boolean deliveryStatus, java.sql.Date deliveryDate, int invoiceId, int customerId) throws SQLException {
         int increment;
-        String sql = String.format("INSERT INTO Order (date, total_Amount, delivery_Status, delivery_Date, invoice_Id, customer_Id) VALUES "+
-                 "'"+createdate+"'"+ "('%d', '%b')" +"'" +deliveryDat+ "'"+ "('%d','%d') SELECT IDENT_CURRENT(‘Order’)", date, totalAmount, deliveryStatus, deliveryDate, invoiceId, customerId);
+        String sql = String.format("INSERT INTO [order] (date, total_Amount, delivery_Status, delivery_Date, invoice_Id, customer_Id) VALUES ('"+date+"',"+totalAmount+", '"+deliveryStatus+"', '"+deliveryDate+"', "+invoiceId+", "+customerId+")");
         try (Connection conn = DBConnection.getInstance().getDBcon();
              Statement stmt = conn.createStatement()) {
             increment = stmt.executeUpdate(sql);
@@ -69,7 +63,8 @@ public class OrderDB implements OrderDBIF {
                 }
                 break;
             case 2:
-                sql = String.format("UPDATE Order SET deliveryDate =" +"'"+deliveryDat+"'"+  "WHERE id = '%d'", object, id);
+                java.sql.Date date= new java.sql.Date(new java.util.Date().getTime());
+                sql = String.format("UPDATE Order SET deliveryDate =" +"'"+date+"'"+  "WHERE id = '%d'", id);
                 try (
                         Statement stmt = DBConnection.getInstance().getDBcon().createStatement()) {
                     stmt.executeUpdate(sql);

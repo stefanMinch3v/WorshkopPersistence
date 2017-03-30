@@ -2,7 +2,7 @@ package DBLayer;
 import ModelLayer.Customer;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by USER on 29.3.2017 г..
@@ -12,5 +12,5 @@ public interface CustomerDBIF {
     Customer update (int id, Object object, int index) throws SQLException;
     boolean delete (int id) throws SQLException;
     Customer readById (int id) throws  SQLException;
-    List<Customer> readAll() throws SQLException;
+    ArrayList<Customer> readAll() throws SQLException;
 }

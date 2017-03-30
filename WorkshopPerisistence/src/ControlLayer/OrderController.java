@@ -9,7 +9,7 @@ import ModelLayer.Order;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created by Red John on 29-Mar-17.
