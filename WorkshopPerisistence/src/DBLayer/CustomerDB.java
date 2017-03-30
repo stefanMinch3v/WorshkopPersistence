@@ -7,21 +7,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by USER on 29.3.2017 г..
  */
 public class CustomerDB implements CustomerDBIF{
-    public static void main(String[] args) {
-        try {
-            //Customer customer = new CustomerDB().create("Dimitar2", "No address", 9400, false, "56665530");
-            //new CustomerDB().readAll();
-            System.out.println("success");
-        }catch (Exception e){
-            e.printStackTrace();
+    private static CustomerDB instance =null;
+    public static CustomerDB getInstance(){
+        if (instance==null){
+            instance= new CustomerDB();
         }
+        return instance;
     }
+
+    private CustomerDB() {
+    }
+
     @Override
     public Customer create(String name, String address, int zip, boolean isCompany, String phoneNumber) throws SQLException {
         ArrayList<String> errorsBag = validate(name, zip, phoneNumber);
@@ -137,9 +138,9 @@ public class CustomerDB implements CustomerDBIF{
     }
 
     @Override
-    public List<Customer> readAll() throws SQLException {
+    public ArrayList<Customer> readAll() throws SQLException {
         ArrayList<Customer> customers = new ArrayList<>();
-        Customer customer = null;
+        Customer customer;
 
         String sql = "SELECT * FROM customer";
 
@@ -152,6 +153,9 @@ public class CustomerDB implements CustomerDBIF{
         } catch(SQLException e) {
             e.printStackTrace();
             throw e;
+        }
+        if (customers.size()==0){
+            return null;
         }
         return customers;
     }
