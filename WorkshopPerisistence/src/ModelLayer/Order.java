@@ -13,7 +13,9 @@ public class Order {
     private int invoiceId;
     private int customerId;
 
+    public Order(){
 
+    }
     public Order(Date date, int totalAmount, String deliveryStatus, Date deliveryDate, int invoiceId, int customerId) {
         this.date = date;
         this.totalAmount = totalAmount;
@@ -74,4 +76,6 @@ public class Order {
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
+
+
 }
