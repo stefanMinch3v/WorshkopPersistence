@@ -3,6 +3,7 @@ package ControlLayer;
 import DBLayer.SupplierDB;
 import ModelLayer.Supplier;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -16,43 +17,56 @@ public class SupplierController {
     }
 
     //Create
-    public boolean createSupplier(String name, String address, String country, String phone, String email) throws Exception{
-        boolean ok = true;
+    public boolean createSupplier(String name, String address, String country, String phone, String email) {
         try{
-            sDB.create(name, address, country, phone, email);
-        } catch (Exception ex) {
+            return (sDB.create(name, address, country, phone, email) != null);
+        } catch (SQLException ex) {
             ex.getMessage();
+            return false;
         }
-        return ok;
+
     }
 
 
     //Delete
-    public boolean deleteSupplier(int id) throws Exception{
-        return sDB.delete(id);
+    public boolean deleteSupplier(int id) {
+        try {
+            return sDB.delete(id);
+        } catch(SQLException ex) {
+            ex.getMessage();
+            return false;
+        }
     }
 
 
     //Update
-    public boolean updateSupplier(int id, String object, int index) throws Exception{
-        boolean ok = true;
+    public boolean updateSupplier(int id, String object, int index) {
         try {
-            sDB.update(id, object, index);
-        } catch (Exception ex) {
+           return (sDB.update(id, object, index) != null);
+        } catch (SQLException ex) {
             ex.getMessage();
+            return false;
         }
-        return ok;
     }
 
 
     //Read specific supplier
-    public Supplier readSupplierById(int id) throws Exception {
-          return sDB.readById(id);
+    public Supplier readSupplierById(int id) {
+          try {
+              return sDB.readById(id);
+          } catch (SQLException ex) {
+              return null;
+          }
     }
 
 
     //Read all
-    public ArrayList<Supplier> readAllSuppliers() throws Exception{
-        return sDB.readAll();
+    public ArrayList<Supplier> readAllSuppliers() {
+        try {
+            return sDB.readAll();
+        } catch (SQLException ex) {
+            ex.getMessage();
+            return null;
+        }
     }
 }
