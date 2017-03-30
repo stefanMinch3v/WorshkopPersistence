@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Admin on 3/29/2017.
  */
-public interface SupplierDBIF {
+public interface  SupplierDBIF {
 
     Supplier create (String name, String address, String country, String phone, String email) throws SQLException;
     Supplier update (int id, String object, int index) throws SQLException;
