@@ -8,7 +8,7 @@ public class OrderLine {
     private int productBarcode;
     private int quantity;
 
-
+    public OrderLine(){}
     public OrderLine(int orderId, int productBarcode, int quantity) {
         this.orderId = orderId;
         this.productBarcode = productBarcode;

@@ -17,7 +17,7 @@ public class OrderDB implements OrderDBIF {
 
     @Override
     public Order create(Date date, int totalAmount, String deliveryStatus, Date deliveryDate, int invoiceId, int customerId) throws SQLException {
-        String sql = String.format("INSERT INTO Order (date, totalAmount, deliveryStatus, deliveryDate, invoiceId, customerId) VALUES "+
+        String sql = String.format("INSERT INTO Order (date, total_Amount, delivery_Status, delivery_Date, invoice_Id, customer_Id) VALUES "+
                  "'"+createdate+"'"+ "('%d', '%s')" +"'" +deliveryDat+ "'"+ "('%d','%d')", date, totalAmount, deliveryStatus, deliveryDate, invoiceId, customerId);
         try (Connection conn = DBConnection.getInstance().getDBcon();
              Statement stmt = conn.createStatement()) {
@@ -118,11 +118,11 @@ public class OrderDB implements OrderDBIF {
         Order o = new Order();
         try {
             o.setDate(rs.getDate("date"));
-            o.setTotalAmount(rs.getInt("totalAmount"));
-            o.setDeliveryStatus(rs.getString("deliveryStatus"));
-            o.setDeliveryDate(rs.getDate("deliveryDate"));
-            o.setInvoiceId(rs.getInt("invoiceId"));
-            o.setCustomerId(rs.getInt("customerId"));
+            o.setTotalAmount(rs.getInt("total_Amount"));
+            o.setDeliveryStatus(rs.getString("delivery_Status"));
+            o.setDeliveryDate(rs.getDate("delivery_Date"));
+            o.setInvoiceId(rs.getInt("invoice_Id"));
+            o.setCustomerId(rs.getInt("customer_Id"));
         } catch(SQLException e) {
             e.printStackTrace();
             throw e;

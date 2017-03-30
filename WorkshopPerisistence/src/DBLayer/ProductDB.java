@@ -10,12 +10,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by USER on 29.3.2017 г..
  */
 public class ProductDB implements ProductDBIF{
+
+    private static ProductDB instance;
+    public static ProductDB getInstance() {
+        if (instance == null) {
+            instance = new ProductDB();
+        }
+        return instance;
+    }
+
+
 
     @Override
     public Gun createGun(String barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId, String material, String caliber) throws SQLException {
@@ -75,7 +84,7 @@ public class ProductDB implements ProductDBIF{
     }
 
     @Override
-    public Equipment createEquipment(String barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId, String type, String description) throws SQLException {
+        public Equipment createEquipment(String barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId, String type, String description) throws SQLException {
         Equipment equipment = new Equipment(barcode, category, quantity, name, purchasePrice, salePrice, minSupply, supId, type, description);
 
         String sql1 = String.format("INSERT INTO product (barcode, category, quantity,name,purchasePrice,salePrice,minSupply,supId) VALUES "
