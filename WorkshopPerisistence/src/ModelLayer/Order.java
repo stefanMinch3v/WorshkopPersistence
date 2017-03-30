@@ -8,7 +8,7 @@ import java.util.Date;
 public class Order {
     private Date date;
     private int totalAmount;
-    private String deliveryStatus;
+    private boolean deliveryStatus;
     private Date deliveryDate;
     private int invoiceId;
     private int customerId;
@@ -16,7 +16,7 @@ public class Order {
     public Order(){
 
     }
-    public Order(Date date, int totalAmount, String deliveryStatus, Date deliveryDate, int invoiceId, int customerId) {
+    public Order(Date date, int totalAmount, boolean deliveryStatus, Date deliveryDate, int invoiceId, int customerId) {
         this.date = date;
         this.totalAmount = totalAmount;
         this.deliveryStatus = deliveryStatus;
@@ -45,11 +45,11 @@ public class Order {
         this.totalAmount = totalAmount;
     }
 
-    public String getDeliveryStatus() {
+    public boolean getDeliveryStatus() {
         return deliveryStatus;
     }
 
-    public void setDeliveryStatus(String deliveryStatus) {
+    public void setDeliveryStatus(boolean deliveryStatus) {
         this.deliveryStatus = deliveryStatus;
     }
 

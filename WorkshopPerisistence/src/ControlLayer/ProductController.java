@@ -11,7 +11,7 @@ public class ProductController {
     ProductDB productDB;
 
     public ProductController() {
-        productDB = productDB.getInstance();
+
     }
 
     public boolean createGun(String barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId, String material, String caliber) throws Exception {

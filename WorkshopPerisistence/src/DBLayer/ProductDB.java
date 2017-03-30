@@ -16,13 +16,6 @@ import java.util.ArrayList;
  */
 public class ProductDB implements ProductDBIF{
 
-    private static ProductDB instance;
-    public static ProductDB getInstance() {
-        if (instance == null) {
-            instance = new ProductDB();
-        }
-        return instance;
-    }
 
 
 

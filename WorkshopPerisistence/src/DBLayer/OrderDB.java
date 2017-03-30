@@ -15,10 +15,19 @@ public class OrderDB implements OrderDBIF {
     private Date createdate = order.getDate();
     private Date deliveryDat = order.getDeliveryDate();
 
+    public static void main(String[] args) {
+        try{
+            new OrderDB().create(new Date(), 10, true,new Date(), 1564465, 655465);
+            System.out.println("kokot");
+        }
+        catch (Exception ex)
+        {ex.getMessage();
+        }
+    }
     @Override
-    public Order create(Date date, int totalAmount, String deliveryStatus, Date deliveryDate, int invoiceId, int customerId) throws SQLException {
+    public Order create(Date date, int totalAmount, boolean deliveryStatus, Date deliveryDate, int invoiceId, int customerId) throws SQLException {
         String sql = String.format("INSERT INTO Order (date, total_Amount, delivery_Status, delivery_Date, invoice_Id, customer_Id) VALUES "+
-                 "'"+createdate+"'"+ "('%d', '%s')" +"'" +deliveryDat+ "'"+ "('%d','%d')", date, totalAmount, deliveryStatus, deliveryDate, invoiceId, customerId);
+                 "'"+createdate+"'"+ "('%d', '%b')" +"'" +deliveryDat+ "'"+ "('%d','%d')", date, totalAmount, deliveryStatus, deliveryDate, invoiceId, customerId);
         try (Connection conn = DBConnection.getInstance().getDBcon();
              Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(sql);
@@ -119,7 +128,7 @@ public class OrderDB implements OrderDBIF {
         try {
             o.setDate(rs.getDate("date"));
             o.setTotalAmount(rs.getInt("total_Amount"));
-            o.setDeliveryStatus(rs.getString("delivery_Status"));
+            o.setDeliveryStatus(rs.getBoolean("delivery_Status"));
             o.setDeliveryDate(rs.getDate("delivery_Date"));
             o.setInvoiceId(rs.getInt("invoice_Id"));
             o.setCustomerId(rs.getInt("customer_Id"));
