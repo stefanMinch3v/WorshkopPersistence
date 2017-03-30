@@ -27,7 +27,7 @@ public class ProductDB implements ProductDBIF{
         String sql1 = String.format("INSERT INTO gun_replicas(product_barcode,material,caliber) VALUES " +
                 "('%s','%s','%s')",barcode,material,caliber);
         String sql2 = String.format("INSERT INTO product (barcode, category, quantity,name,purchasePrice,salePrice,minSupply,supId) VALUES "
-                + "('%d', '%s','%d', '%s','%d','%d','%d','%d')", barcode, category, quantity,name,purchasePrice,salePrice,minSupply,supId);
+                + "('%s', '%s','%d', '%s','%f','%f','%d','%d')", barcode, category, quantity,name,purchasePrice,salePrice,minSupply,supId);
         try (Connection conn = DBConnection.getInstance().getDBcon();
              Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(sql2);
@@ -53,7 +53,7 @@ public class ProductDB implements ProductDBIF{
         Clothing clothing = new Clothing(barcode, category, quantity, name, purchasePrice, salePrice, minSupply, supId, size, color);
 
         String sql1 = String.format("INSERT INTO product (barcode, category, quantity,name,purchasePrice,salePrice,minSupply,supId) VALUES "
-                + "('%d', '%s','%d', '%s','%d','%d','%d','%d')", barcode, category, quantity,name,purchasePrice,salePrice,minSupply,supId);
+                + "('%s', '%s','%d', '%s','%f','%f','%d','%d')", barcode, category, quantity,name,purchasePrice,salePrice,minSupply,supId);
         String sql2 = String.format("INSERT INTO clothes(product_barcode,size,color) VALUES " +
                 "('%s','%s','%s')",barcode,size,color);
 
@@ -81,7 +81,7 @@ public class ProductDB implements ProductDBIF{
         Equipment equipment = new Equipment(barcode, category, quantity, name, purchasePrice, salePrice, minSupply, supId, type, description);
 
         String sql1 = String.format("INSERT INTO product (barcode, category, quantity,name,purchasePrice,salePrice,minSupply,supId) VALUES "
-                + "('%d', '%s','%d', '%s','%d','%d','%d','%d')", barcode, category, quantity,name,purchasePrice,salePrice,minSupply,supId);
+                + "('%s', '%s','%d', '%s','%f','%f','%d','%d')", barcode, category, quantity,name,purchasePrice,salePrice,minSupply,supId);
         String sql2 = String.format("INSERT INTO equipment (product_barcode,type,description) VALUES " +
                 "('%s','%s','%s')",barcode,type,description);
 
@@ -106,11 +106,10 @@ public class ProductDB implements ProductDBIF{
 
     @Override
     public Product update(String barcode, Object object, int index) throws SQLException {
-        Product p = null;
         String sql;
         switch (index) {
             case 1:
-                sql = String.format("UPDATE Product SET quantity = '%d' WHERE barcode = '%s'", object, barcode);
+                sql = String.format("UPDATE Product SET quantity = '%d' WHERE barcode = '%s'",object, barcode);
                 try (
                         Statement stmt = DBConnection.getInstance().getDBcon().createStatement()) {
                     stmt.executeUpdate(sql);
@@ -120,7 +119,7 @@ public class ProductDB implements ProductDBIF{
                 }
                 break;
             case 2:
-                sql = String.format("UPDATE Product SET purchase_price = '%d' WHERE barcode = '%s'", object, barcode);
+                sql = String.format("UPDATE Product SET purchase_price = '%f' WHERE barcode = '%s'",object, barcode);
                 try (
                         Statement stmt = DBConnection.getInstance().getDBcon().createStatement()) {
                     stmt.executeUpdate(sql);
@@ -130,7 +129,7 @@ public class ProductDB implements ProductDBIF{
                 }
                 break;
             case 3:
-                sql = String.format("UPDATE Product SET selling_price = '%d' WHERE barcode = '%s'", object, barcode);
+                sql = String.format("UPDATE Product SET selling_price = '%f' WHERE barcode = '%s'", object, barcode);
                 try (
                         Statement stmt = DBConnection.getInstance().getDBcon().createStatement()) {
                     stmt.executeUpdate(sql);
@@ -171,8 +170,7 @@ public class ProductDB implements ProductDBIF{
     }
 
     @Override
-    public Product readByBarcode(String barcode) throws SQLException {
-        Product p = null;
+    public Product readByBarcode(String barcode) throws SQLException {Product p = null;
 
         String sql = "SELECT * FROM product WHERE barcode = " + barcode;
         String sql1 = "SELECT * FROM clothes WHERE barcode = " + barcode;
@@ -208,7 +206,10 @@ public class ProductDB implements ProductDBIF{
 
     @Override
     public ArrayList<Product> readAll() throws SQLException {
+        ArrayList<Product> products = new ArrayList<>();
+        Product product;
 
-        return null;
+        String sql = "SELECT * FROM Product";
+return null;
     }
 }
