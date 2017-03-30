@@ -5,7 +5,7 @@ package ModelLayer;
  */
 public abstract class Product {
 
-    private int barcode;
+    private String barcode;
     private String category;
     private int quantity;
     private String name;
@@ -15,8 +15,7 @@ public abstract class Product {
     private int supId;
 
     // CONSTRUCTOR --------------------------------------------------------------------
-
-    public Product(int barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId) {
+    public Product(String barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId) {
         this.barcode = barcode;
         this.category = category;
         this.quantity = quantity;
@@ -29,7 +28,7 @@ public abstract class Product {
 
     // GETTERS -------------------------------------------------------------------------
 
-    public int getBarcode() {
+    public String getBarcode() {
         return barcode;
     }
 

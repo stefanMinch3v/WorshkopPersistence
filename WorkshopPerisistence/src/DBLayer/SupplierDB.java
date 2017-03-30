@@ -161,7 +161,6 @@ public class SupplierDB implements SupplierDBIF {
         while(rs.next()) {
             cs.add(buildObject(rs));
         }
-
         return cs;
     }
     //Validate data
