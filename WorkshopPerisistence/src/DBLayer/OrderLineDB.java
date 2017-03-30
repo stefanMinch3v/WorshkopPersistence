@@ -12,6 +12,14 @@ import java.util.ArrayList;
 public class OrderLineDB implements OrderLineDBIF {
     private OrderLine orderline;
 
+    //Singleton
+    private static OrderLineDB instance =null;
+    public static OrderLineDB getInstance(){
+        if (instance==null){
+            instance= new OrderLineDB();
+        }
+        return instance;
+    }
     @Override
     public OrderLine create(int orderId, int productBarcode, int quantity) throws SQLException {
         String sql = String.format("INSERT INTO OrderLine (order_Id, product_Barcode, quantity) VALUES "

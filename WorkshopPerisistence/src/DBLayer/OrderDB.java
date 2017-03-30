@@ -15,6 +15,15 @@ public class OrderDB implements OrderDBIF {
     private Date createdate = order.getDate();
     private Date deliveryDat = order.getDeliveryDate();
 
+
+    private static OrderDB instance =null;
+    public static OrderDB getInstance(){
+        if (instance==null){
+            instance= new OrderDB();
+        }
+        return instance;
+    }
+
     public static void main(String[] args) {
         try{
             new OrderDB().create(new Date(), 10, true,new Date(), 1564465, 655465);

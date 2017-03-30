@@ -204,12 +204,12 @@ public class ProductDB implements ProductDBIF{
         }
     }
 
-    @Override
+    /*@Override
     public ArrayList<Product> readAll() throws SQLException {
         ArrayList<Product> products = new ArrayList<>();
         Product product;
 
         String sql = "SELECT * FROM Product";
 return null;
-    }
+    }*/
 }
