@@ -8,6 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by USER on 30.3.2017 г..
  */
+//creates single class but it should be automated
 public class InvoiceDB implements InvoiceDBIF {
     public static void main(String[] args) {
         try {
