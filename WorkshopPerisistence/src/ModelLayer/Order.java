@@ -6,6 +6,7 @@ import java.util.Date;
  * Created by Admin on 3/29/2017.
  */
 public class Order {
+    private int id;
     private Date date;
     private int totalAmount;
     private boolean deliveryStatus;
@@ -16,7 +17,8 @@ public class Order {
     public Order(){
 
     }
-    public Order(Date date, int totalAmount, boolean deliveryStatus, Date deliveryDate, int invoiceId, int customerId) {
+    public Order(int id,Date date, int totalAmount, boolean deliveryStatus, Date deliveryDate, int invoiceId, int customerId) {
+        this.id = id;
         this.date = date;
         this.totalAmount = totalAmount;
         this.deliveryStatus = deliveryStatus;
@@ -32,6 +34,8 @@ public class Order {
     public Date getDate() {
         return date;
     }
+
+    public int getId(){return id;}
 
     public void setDate(Date date) {
         this.date = date;

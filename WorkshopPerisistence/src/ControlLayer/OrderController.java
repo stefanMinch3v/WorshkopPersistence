@@ -17,11 +17,18 @@ import java.util.Date;
 public class OrderController {
     OrderDB orderDB = OrderDB.getInstance();
     OrderLineDB orderLineDB = OrderLineDB.getInstance();
-    public Order create(ArrayList<Equipment>equipments, ArrayList<Clothing> clothings, ArrayList<Gun> guns, Date date, int totalAmount, boolean deliveryStatus, Date deliveryDate, int invoiceId, int customerId) throws SQLException {
+    public boolean create(ArrayList<Equipment>equipments, ArrayList<Clothing> clothings, ArrayList<Gun> guns, Date date, int totalAmount, boolean deliveryStatus, Date deliveryDate, int invoiceId, int customerId) throws SQLException {
+        int orderId = orderDB.create(date,totalAmount,deliveryStatus,deliveryDate,invoiceId,customerId).getId();
         for (Equipment equipment : equipments) {
-
+            orderLineDB.create(orderId,equipment.getBarcode(),equipment.getQuantity());
         }
-        return orderDB.create(date,totalAmount,deliveryStatus,deliveryDate,invoiceId,customerId);
+        for (Clothing clothing : clothings) {
+            orderLineDB.create(orderId,clothing.getBarcode(),clothing.getQuantity());
+        }
+        for (Gun gun : guns) {
+            orderLineDB.create(orderId,gun.getBarcode(),gun.getQuantity());
+        }
+        return true;
     }
     public Order read(int id) throws SQLException{
         return orderDB.readById(id);

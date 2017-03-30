@@ -21,9 +21,9 @@ public class OrderLineDB implements OrderLineDBIF {
         return instance;
     }
     @Override
-    public OrderLine create(int orderId, int productBarcode, int quantity) throws SQLException {
+    public OrderLine create(int orderId, String productBarcode, int quantity) throws SQLException {
         String sql = String.format("INSERT INTO OrderLine (order_Id, product_Barcode, quantity) VALUES "
-                + "('%s', '%s', '%s')", orderId, productBarcode, quantity);
+                + "('%s', '%s', '%d')", orderId, productBarcode, quantity);
 
         try (Connection conn = DBConnection.getInstance().getDBcon();
              Statement stmt = conn.createStatement()) {
@@ -91,7 +91,7 @@ public class OrderLineDB implements OrderLineDBIF {
         OrderLine ol = new OrderLine();
         try {
             ol.setOrderId(rs.getInt("order_id"));
-            ol.setProductBarcode(rs.getInt("product_barcode"));
+            ol.setProductBarcode(rs.getString("product_barcode"));
             ol.setQuantity(rs.getInt("quantity"));
 
         } catch(SQLException e) {

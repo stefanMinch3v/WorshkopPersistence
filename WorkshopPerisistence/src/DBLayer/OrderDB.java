@@ -35,17 +35,18 @@ public class OrderDB implements OrderDBIF {
     }
     @Override
     public Order create(Date date, int totalAmount, boolean deliveryStatus, Date deliveryDate, int invoiceId, int customerId) throws SQLException {
+        int increment;
         String sql = String.format("INSERT INTO Order (date, total_Amount, delivery_Status, delivery_Date, invoice_Id, customer_Id) VALUES "+
-                 "'"+createdate+"'"+ "('%d', '%b')" +"'" +deliveryDat+ "'"+ "('%d','%d')", date, totalAmount, deliveryStatus, deliveryDate, invoiceId, customerId);
+                 "'"+createdate+"'"+ "('%d', '%b')" +"'" +deliveryDat+ "'"+ "('%d','%d') SELECT IDENT_CURRENT(‘Order’)", date, totalAmount, deliveryStatus, deliveryDate, invoiceId, customerId);
         try (Connection conn = DBConnection.getInstance().getDBcon();
              Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(sql);
+            increment = stmt.executeUpdate(sql);
         } catch(SQLException e) {
             e.printStackTrace();
             throw e;
         }
 
-        Order o = new Order(date, totalAmount, deliveryStatus, deliveryDate, invoiceId, customerId);
+        Order o = new Order(increment, date, totalAmount, deliveryStatus, deliveryDate, invoiceId, customerId);
 
         return o;
 

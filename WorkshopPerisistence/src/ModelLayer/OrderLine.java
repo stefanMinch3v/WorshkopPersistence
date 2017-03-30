@@ -5,11 +5,11 @@ package ModelLayer;
  */
 public class OrderLine {
     private int orderId;
-    private int productBarcode;
+    private String productBarcode;
     private int quantity;
 
     public OrderLine(){}
-    public OrderLine(int orderId, int productBarcode, int quantity) {
+    public OrderLine(int orderId, String productBarcode, int quantity) {
         this.orderId = orderId;
         this.productBarcode = productBarcode;
         this.quantity = quantity;
@@ -23,11 +23,11 @@ public class OrderLine {
         this.orderId = orderId;
     }
 
-    public int getProductBarcode() {
+    public String getProductBarcode() {
         return productBarcode;
     }
 
-    public void setProductBarcode(int productBarcode) {
+    public void setProductBarcode(String productBarcode) {
         this.productBarcode = productBarcode;
     }
 
