@@ -10,7 +10,6 @@ public class Customer {
     private int zip;
     private boolean isCompany;
     private String phoneNumber;
-    private String deleteMe;
 
     public Customer(String name, String address, int zip, boolean isCompany, String phoneNumber) {
         this.name = name;
@@ -18,6 +17,10 @@ public class Customer {
         this.zip = zip;
         this.isCompany = isCompany;
         this.phoneNumber = phoneNumber;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -58,5 +61,17 @@ public class Customer {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", zip=" + zip +
+                ", isCompany=" + isCompany +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }
