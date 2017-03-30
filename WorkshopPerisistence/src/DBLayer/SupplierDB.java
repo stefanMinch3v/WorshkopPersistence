@@ -5,11 +5,21 @@ import ModelLayer.Supplier;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.*;
+import java.util.Spliterator;
 
 /**
  * Created by Admin on 3/29/2017.
  */
 public class SupplierDB implements SupplierDBIF {
+    private static SupplierDB instance;
+
+    //singleton
+    public static SupplierDB getInstance() {
+        if (instance == null) {
+            instance = new SupplierDB();
+        }
+        return instance;
+    }
 
     @Override
     public Supplier create(String name, String address, String country, String phone, String email) throws SQLException {
@@ -129,13 +139,17 @@ public class SupplierDB implements SupplierDBIF {
         String sql = "SELECT * FROM Supplier";
         try(Statement st = DBConnection.getInstance().getDBcon().createStatement()) {
             ResultSet rs = st.executeQuery(sql);
-            if(rs.next()) {
+            while(rs.next()) {
                 s = buildObjects(rs);// create method buildObject
             }
         } catch(SQLException e) {
             e.printStackTrace();
             throw e;
         }
+        for (Supplier supp:s) {
+            System.out.println(supp);
+        }
+
 
         return s;
     }
@@ -157,7 +171,7 @@ public class SupplierDB implements SupplierDBIF {
     }
 
     private ArrayList<Supplier> buildObjects(ResultSet rs) throws SQLException{
-        ArrayList<Supplier> cs = new ArrayList<Supplier>();
+        ArrayList<Supplier> cs = new ArrayList<>();
         while(rs.next()) {
             cs.add(buildObject(rs));
         }
