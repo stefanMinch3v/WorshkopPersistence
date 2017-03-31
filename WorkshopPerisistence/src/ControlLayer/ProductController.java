@@ -14,34 +14,32 @@ public class ProductController {
 
     }
 
-    public boolean createGun(String barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId, String material, String caliber) throws Exception {
+    public boolean createGun(String barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId, String material, String caliber){
 
         try {
             productDB.createGun(barcode, category, quantity, name, purchasePrice, salePrice, minSupply, supId, material, caliber);
-        } catch (Exception ex) {
-            ex.getMessage();
-
+        } catch (SQLException e) {
+            return false;
         }
         return true;
-
     }
 
-    public boolean createEquipment(String barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId, String size, String color) throws SQLException {
+    public boolean createEquipment(String barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId, String size, String color){
         try {
             productDB.createEquipment(barcode, category, quantity, name, purchasePrice, salePrice, minSupply, supId, size, color);
 
-        } catch (Exception ex) {
-            ex.getMessage();
+        } catch (SQLException e) {
+            return false;
         }
         return true;
     }
 
-    public boolean createClothing(String barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId, String size, String color) throws SQLException {
+    public boolean createClothing(String barcode, String category, int quantity, String name, double purchasePrice, double salePrice, int minSupply, int supId, String size, String color){
         try {
             productDB.createClothing(barcode, category, quantity, name, purchasePrice, salePrice, minSupply, supId, size, color);
 
-        } catch (Exception ex) {
-            ex.getMessage();
+        } catch (SQLException e) {
+            return false;
         }
         return true;
 

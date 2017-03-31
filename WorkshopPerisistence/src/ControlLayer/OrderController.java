@@ -6,6 +6,7 @@ import ModelLayer.Clothing;
 import ModelLayer.Equipment;
 import ModelLayer.Gun;
 import ModelLayer.Order;
+import com.sun.istack.internal.Nullable;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,16 +31,27 @@ public class OrderController {
         }
         return true;
     }
-    public Order readById(int id) throws SQLException{
-        return orderDB.readById(id);
+    @Nullable
+    public Order readById(int id){
+        try {
+            return orderDB.readById(id);
+        }catch (SQLException e){
+            return null;
+        }
     }
-
-    public Order update(int id, Object object, int index) throws SQLException{
-        return orderDB.update(id,object,index);
+    @Nullable
+    public Order update(int id, Object object, int index){
+        try {
+            return orderDB.update(id, object, index);
+        }catch (SQLException e){
+            return null;
+        }
     }
-
-    public boolean delete(int id) throws SQLException{
-        return orderDB.delete(id);
+    public boolean delete(int id){
+        try {
+            return orderDB.delete(id);
+        }catch (SQLException e){
+            return false;
+        }
     }
-
 }

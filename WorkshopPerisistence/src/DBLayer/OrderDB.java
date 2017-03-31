@@ -109,7 +109,6 @@ public class OrderDB implements OrderDBIF {
 
     @Override
     public boolean delete(int id) throws SQLException {
-        boolean ok = true;
         String sql = String.format("DELETE FROM Order WHERE id = '%d'", id);
         try (
                 Statement stmt = DBConnection.getInstance().getDBcon().createStatement()) {
@@ -118,7 +117,7 @@ public class OrderDB implements OrderDBIF {
             e.printStackTrace();
             throw e;
         }
-        return ok;
+        return true;
     }
     @Override
     public Order readById(int id) throws SQLException {
