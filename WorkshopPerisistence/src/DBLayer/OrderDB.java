@@ -31,6 +31,7 @@ public class OrderDB implements OrderDBIF {
     @Override
     public Order create(java.sql.Date date, int totalAmount, boolean deliveryStatus, java.sql.Date deliveryDate, int invoiceId, int customerId) throws SQLException {
         int increment;
+        Order o=null;
         String sql = String.format("INSERT INTO [order] (date, total_Amount, delivery_Status, delivery_Date, invoice_Id, customer_Id) VALUES ('"+date+"',"+totalAmount+", '"+deliveryStatus+"', '"+deliveryDate+"', "+invoiceId+", "+customerId+")");
         try (Connection conn = DBConnection.getInstance().getDBcon();
              Statement stmt = conn.createStatement()) {
@@ -38,13 +39,37 @@ public class OrderDB implements OrderDBIF {
         } catch(SQLException e) {
             e.printStackTrace();
             throw e;
+        }finally {
+            DBConnection.closeConnection();
         }
+        String sql2= "SELECT TOP 1 id FROM [order] order by id desc";
+        try(Statement st = DBConnection.getInstance().getDBcon().createStatement()) {
+            ResultSet rs = st.executeQuery(sql2);
+            if(rs.next()) {
+               int id = rs.getInt(1);// create method buildObject
+                o = new Order(increment, date, totalAmount, deliveryStatus, deliveryDate, invoiceId, customerId);
+                o.setId(id);
+                String sql3 = "SELECT TOP 1 is_company from customer where id="+customerId;
+                ResultSet resultSet = st.executeQuery(sql3);
+                Boolean isCustomerPrivate = rs.getBoolean(1);
+                if (!isCustomerPrivate){
+                    InvoiceDB.getInstance().create(date, (totalAmount-totalAmount*0.05));
+                }else{
+                    if (totalAmount<2500) {
+                        InvoiceDB.getInstance().create(date, (totalAmount+45));
+                    }else{
+                        InvoiceDB.getInstance().create(date, totalAmount);
+                    }
+                }
 
-        Order o = new Order(increment, date, totalAmount, deliveryStatus, deliveryDate, invoiceId, customerId);
-
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }finally {
+           DBConnection.closeConnection();
+        }
         return o;
-
-
     }
 
     @Override
@@ -150,7 +175,6 @@ public class OrderDB implements OrderDBIF {
         while(rs.next()) {
             cs.add(buildObject(rs));
         }
-
         return cs;
     }
 }

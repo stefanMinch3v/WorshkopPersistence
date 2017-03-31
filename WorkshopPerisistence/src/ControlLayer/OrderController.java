@@ -30,7 +30,7 @@ public class OrderController {
         }
         return true;
     }
-    public Order read(int id) throws SQLException{
+    public Order readById(int id) throws SQLException{
         return orderDB.readById(id);
     }
 

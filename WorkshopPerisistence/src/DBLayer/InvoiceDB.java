@@ -63,7 +63,25 @@ public class InvoiceDB implements InvoiceDBIF {
 
     @Override
     public ArrayList<Invoice> readAll() throws SQLException {
-        return null;
+        ArrayList<Invoice> invoices = new ArrayList<>();
+        Invoice invoice;
+
+        String sql = "SELECT * FROM invoice";
+
+        try(Statement st = DBConnection.getInstance().getDBcon().createStatement()) {
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                invoice = new Invoice(rs.getDate(2),rs.getDouble(3));
+                invoices.add(invoice);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+        if (invoices.size()==0){
+            return null;
+        }
+        return invoices;
     }
 
 }

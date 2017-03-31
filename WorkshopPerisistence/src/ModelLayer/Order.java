@@ -61,6 +61,10 @@ public class Order {
         return deliveryDate;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
